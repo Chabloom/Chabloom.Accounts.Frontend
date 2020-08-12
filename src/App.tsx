@@ -1,10 +1,11 @@
 import React from 'react';
-
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+
+import {Grid} from "@material-ui/core";
 
 import Login from "./components/Login";
 import Logout from "./components/Logout";
-import {Grid} from "@material-ui/core";
+import Register from "./components/Register";
 
 import './App.scss';
 
@@ -18,6 +19,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route path="/logout">
                         <Logout/>
+                    </Route>
+                    <Route path="/register">
+                        <Register/>
                     </Route>
                 </Switch>
             </Grid>
