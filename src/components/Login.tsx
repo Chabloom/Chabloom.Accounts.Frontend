@@ -20,7 +20,6 @@ import "./Login.scss"
 interface LoginViewModel {
     email: string;
     password: string;
-    returnUrl: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,7 +80,6 @@ const Login: React.FC = () => {
                             const data = {
                                 email: email,
                                 password: password,
-                                returnUrl: returnUrl,
                             } as LoginViewModel;
                             fetch("https://localhost:44303/api/authentication/login", {
                                 method: "POST",
