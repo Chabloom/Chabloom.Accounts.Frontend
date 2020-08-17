@@ -51,7 +51,31 @@ const Login: React.FC = () => {
             <Paper className={classes.paper} elevation={3}>
                 <img src={logo} className="logo" alt="logo"/>
                 <Typography variant="h5">Sign in</Typography>
-                <form onSubmit={e => e.preventDefault()}>
+                <form onSubmit={e => {
+                    e.preventDefault();
+                    setError("");
+                    setProcessing(true);
+                    const data = {
+                        email: email,
+                        password: password,
+                    } as LoginViewModel;
+                    fetch("https://localhost:44303/api/authentication/login", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify(data)
+                    }).then(value => {
+                        if (value.status === 401) {
+                            setError("Invalid username or password.");
+                        } else if (value.status === 200 && returnUrl) {
+                            window.location.replace(returnUrl);
+                        }
+                    }).catch(reason => {
+                        setError(reason.message);
+                    }).finally(() => setProcessing(false));
+                }}>
                     <FormGroup>
                         <TextField required name="email" label="Email" value={email} type="email"
                                    disabled={processing} onChange={e => setEmail(e.target.value)}/>
@@ -67,36 +91,8 @@ const Login: React.FC = () => {
                     {processing &&
                     <LinearProgress className={classes.mt1}/>
                     }
-                    <Button
-                        className={classes.mt1}
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        disabled={processing}
-                        onClick={() => {
-                            setError("");
-                            setProcessing(true);
-                            const data = {
-                                email: email,
-                                password: password,
-                            } as LoginViewModel;
-                            fetch("https://localhost:44303/api/authentication/login", {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                credentials: 'include',
-                                body: JSON.stringify(data)
-                            }).then(value => {
-                                if (value.status === 401) {
-                                    setError("Invalid username or password.");
-                                } else if (value.status === 200 && returnUrl) {
-                                    window.location.replace(returnUrl);
-                                }
-                            }).catch(reason => {
-                                setError(reason.message);
-                            }).finally(() => setProcessing(false));
-                        }}>
+                    <Button className={classes.mt1} variant="contained" color="primary" type="submit"
+                            disabled={processing}>
                         Login
                     </Button>
                 </form>

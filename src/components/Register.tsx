@@ -56,7 +56,39 @@ const Register: React.FC = () => {
             <Paper className={classes.paper} elevation={3}>
                 <img src={logo} className="logo" alt="logo"/>
                 <Typography variant="h5">Register account</Typography>
-                <form onSubmit={e => e.preventDefault()}>
+                <form onSubmit={e => {
+                    e.preventDefault();
+                    setError("");
+                    setProcessing(true);
+                    if (password1 !== password2) {
+                        setError("Passwords do not match");
+                        setProcessing(false);
+                        return;
+                    }
+                    const data = {
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        password: password1,
+                        returnUrl: returnUrl,
+                    } as RegisterViewModel;
+                    fetch("https://localhost:44303/api/authentication/register", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify(data)
+                    }).then(async value => {
+                        if (value.status === 400) {
+                            setError(await value.text());
+                        } else if (value.status === 200 && returnUrl) {
+                            window.location.replace(returnUrl);
+                        }
+                    }).catch(reason => {
+                        setError(reason.message);
+                    }).finally(() => setProcessing(false));
+                }}>
                     <FormGroup>
                         <TextField required name="name" label="Name" value={name}
                                    disabled={processing} onChange={e => setName(e.target.value)}/>
@@ -64,10 +96,10 @@ const Register: React.FC = () => {
                                    disabled={processing} onChange={e => setEmail(e.target.value)}/>
                         <TextField required name="phone" label="Phone" value={phone} type="tel"
                                    disabled={processing} onChange={e => setPhone(e.target.value)}/>
-                        <TextField required name="password1" label="Password" value={password1} type="password"
-                                   disabled={processing} onChange={e => setPassword1(e.target.value)}/>
-                        <TextField required name="password2" label="Password (confirm)" value={password2} type="password"
-                                   disabled={processing} onChange={e => setPassword2(e.target.value)}/>
+                        <TextField required name="password1" label="Password" value={password1}
+                                   type="password" disabled={processing} onChange={e => setPassword1(e.target.value)}/>
+                        <TextField required name="password2" label="Password (confirm)" value={password2}
+                                   type="password" disabled={processing} onChange={e => setPassword2(e.target.value)}/>
                     </FormGroup>
                     {error &&
                     <Alert className={classes.mt1} severity="error">
@@ -78,44 +110,8 @@ const Register: React.FC = () => {
                     {processing &&
                     <LinearProgress className={classes.mt1}/>
                     }
-                    <Button
-                        className={classes.mt1}
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                        disabled={processing}
-                        onClick={() => {
-                            setError("");
-                            setProcessing(true);
-                            if (password1 !== password2) {
-                                setError("Passwords do not match");
-                                setProcessing(false);
-                                return;
-                            }
-                            const data = {
-                                name: name,
-                                email: email,
-                                phone: phone,
-                                password: password1,
-                                returnUrl: returnUrl,
-                            } as RegisterViewModel;
-                            fetch("https://localhost:44303/api/authentication/register", {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                credentials: 'include',
-                                body: JSON.stringify(data)
-                            }).then(async value => {
-                                if (value.status === 400) {
-                                    setError(await value.text());
-                                } else if (value.status === 200 && returnUrl) {
-                                    window.location.replace(returnUrl);
-                                }
-                            }).catch(reason => {
-                                setError(reason.message);
-                            }).finally(() => setProcessing(false));
-                        }}>
+                    <Button className={classes.mt1} variant="contained" color="primary" type="submit"
+                            disabled={processing}>
                         Register
                     </Button>
                 </form>
