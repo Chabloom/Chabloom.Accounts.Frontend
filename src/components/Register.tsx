@@ -15,7 +15,6 @@ import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
 import logo from "../logo.svg"
-import "./Register.scss"
 
 interface RegisterViewModel {
     name: string;
@@ -88,6 +87,11 @@ const Register: React.FC = () => {
                         onClick={() => {
                             setError("");
                             setProcessing(true);
+                            if (password1 !== password2) {
+                                setError("Passwords do not match");
+                                setProcessing(false);
+                                return;
+                            }
                             const data = {
                                 name: name,
                                 email: email,

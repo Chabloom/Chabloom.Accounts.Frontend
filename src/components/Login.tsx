@@ -15,7 +15,6 @@ import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
 import logo from "../logo.svg"
-import "./Login.scss"
 
 interface LoginViewModel {
     email: string;
