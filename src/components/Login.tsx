@@ -14,12 +14,9 @@ import {
 import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
-import logo from "../logo.svg"
+import {LoginViewModel} from "../api/models";
 
-interface LoginViewModel {
-    email: string;
-    password: string;
-}
+import logo from "../logo.svg"
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

@@ -14,14 +14,9 @@ import {
 import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
-import logo from "../logo.svg"
+import {RegisterViewModel} from "../api/models";
 
-interface RegisterViewModel {
-    name: string;
-    email: string;
-    phone: string;
-    password: string;
-}
+import logo from "../logo.svg"
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
