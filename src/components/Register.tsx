@@ -15,6 +15,7 @@ import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
 import {RegisterViewModel} from "../api/models";
+import {ApplicationConfig} from "../settings/config";
 
 import logo from "../logo.svg"
 
@@ -67,7 +68,7 @@ const Register: React.FC = () => {
                         password: password1,
                         returnUrl: returnUrl,
                     } as RegisterViewModel;
-                    fetch("https://localhost:44303/api/authentication/register", {
+                    fetch(`${ApplicationConfig.apiPublicAddress}/api/authentication/register`, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json'

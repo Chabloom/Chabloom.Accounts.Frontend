@@ -4,6 +4,8 @@ import {createStyles, Grid, LinearProgress, Paper, Theme, Typography} from "@mat
 import {Alert, AlertTitle} from "@material-ui/lab";
 import {makeStyles} from "@material-ui/core/styles";
 
+import {ApplicationConfig} from "../settings/config";
+
 import logo from "../logo.svg"
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +31,7 @@ const Logout: React.FC = (props) => {
     let params = new URLSearchParams(window.location.search);
     let returnUrl = params.get("ReturnUrl");
 
-    fetch("https://localhost:44303/api/authentication/logout", {
+    fetch(`${ApplicationConfig.apiPublicAddress}/api/authentication/logout`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

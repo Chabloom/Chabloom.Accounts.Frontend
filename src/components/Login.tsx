@@ -15,6 +15,7 @@ import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
 import {LoginViewModel} from "../api/models";
+import {ApplicationConfig} from "../settings/config";
 
 import logo from "../logo.svg"
 
@@ -56,7 +57,7 @@ const Login: React.FC = () => {
                         email: email,
                         password: password,
                     } as LoginViewModel;
-                    fetch("https://localhost:44303/api/authentication/login", {
+                    fetch(`${ApplicationConfig.apiPublicAddress}/api/authentication/login`, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json'
