@@ -15,7 +15,7 @@ import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
 import {LoginViewModel} from "../api/models";
-import {ApplicationConfig} from "../settings/config";
+import {ApplicationConfig} from "../settings";
 
 import logo from "../logo.svg"
 

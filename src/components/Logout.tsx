@@ -4,7 +4,7 @@ import {createStyles, Grid, LinearProgress, Paper, Theme, Typography} from "@mat
 import {Alert, AlertTitle} from "@material-ui/lab";
 import {makeStyles} from "@material-ui/core/styles";
 
-import {ApplicationConfig} from "../settings/config";
+import {ApplicationConfig} from "../settings";
 
 import logo from "../logo.svg"
 
