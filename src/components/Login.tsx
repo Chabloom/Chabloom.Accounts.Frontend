@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const Login: React.FC = () => {
+export const Login: React.FC = () => {
     // Initialize classes
     const classes = useStyles();
 
@@ -98,5 +98,3 @@ const Login: React.FC = () => {
         </Grid>
     );
 }
-
-export default Login;

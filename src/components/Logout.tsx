@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const Logout: React.FC = (props) => {
+export const Logout: React.FC = (props) => {
     // Initialize classes
     const classes = useStyles();
 
@@ -64,5 +64,3 @@ const Logout: React.FC = (props) => {
         </Grid>
     );
 }
-
-export default Logout;

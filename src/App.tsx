@@ -3,16 +3,14 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import {Grid} from "@material-ui/core";
 
-import Login from "./components/Login";
-import Logout from "./components/Logout";
-import Register from "./components/Register";
+import {Login, Logout, Register} from "./components";
 
 import './App.scss';
 
 const App: React.FC = () => {
     return (
         <Router>
-            <Grid container alignItems="center" justify="center" style={{ minHeight: '100vh' }}>
+            <Grid container alignItems="center" justify="center" style={{minHeight: '100vh'}}>
                 <Switch>
                     <Route path="/login">
                         <Login/>

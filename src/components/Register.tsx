@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const Register: React.FC = () => {
+export const Register: React.FC = () => {
     // Initialize classes
     const classes = useStyles();
 
@@ -115,5 +115,3 @@ const Register: React.FC = () => {
         </Grid>
     );
 }
-
-export default Register;
