@@ -2,7 +2,9 @@ import React from "react";
 
 import {
     Button,
+    Checkbox,
     createStyles,
+    FormControlLabel,
     FormGroup,
     Grid,
     LinearProgress,
@@ -14,7 +16,7 @@ import {
 import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
-import {LoginViewModel} from "../api/models";
+import {LoginViewModel} from "../models";
 import {ApplicationConfig} from "../settings";
 
 import logo from "../logo.svg"
@@ -37,6 +39,7 @@ export const Login: React.FC = () => {
     // Initialize state variables
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [remember, setRemember] = React.useState(false);
     const [error, setError] = React.useState("");
     const [processing, setProcessing] = React.useState(false);
 
@@ -56,6 +59,7 @@ export const Login: React.FC = () => {
                     const data = {
                         email: email,
                         password: password,
+                        remember: remember,
                     } as LoginViewModel;
                     fetch(`${ApplicationConfig.apiPublicAddress}/api/authentication/login`, {
                         method: "POST",
@@ -79,6 +83,12 @@ export const Login: React.FC = () => {
                                    disabled={processing} onChange={e => setEmail(e.target.value)}/>
                         <TextField required name="password" label="Password" value={password} type="password"
                                    disabled={processing} onChange={e => setPassword(e.target.value)}/>
+                        <FormControlLabel
+                            control={
+                                <Checkbox name="remember" color="primary" checked={remember}
+                                          onChange={() => setRemember(!remember)}/>
+                            }
+                            label="Stay logged in"/>
                     </FormGroup>
                     {error &&
                     <Alert className={classes.mt1} severity="error">
