@@ -4,6 +4,7 @@ import {createStyles, Grid, LinearProgress, Paper, Theme, Typography} from "@mat
 import {Alert, AlertTitle} from "@material-ui/lab";
 import {makeStyles} from "@material-ui/core/styles";
 
+import {SignOutViewModel} from "../models";
 import {ApplicationConfig} from "../settings";
 
 import logo from "../logo.svg"
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export const Logout: React.FC = (props) => {
+export const SignOut: React.FC = () => {
     // Initialize classes
     const classes = useStyles();
 
@@ -27,23 +28,35 @@ export const Logout: React.FC = (props) => {
     const [error, setError] = React.useState("");
     const [processing, setProcessing] = React.useState(false);
 
-    // Get parameters and return URL
-    let params = new URLSearchParams(window.location.search);
-    let returnUrl = params.get("ReturnUrl");
-
-    fetch(`${ApplicationConfig.apiPublicAddress}/api/authentication/logout`, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include'
-    }).then(value => {
-        if (value.status === 200 && returnUrl) {
-            window.location.replace(returnUrl);
-        }
-    }).catch(reason => {
-        setError(reason.message);
-    }).finally(() => setProcessing(false));
+    React.useEffect(() => {
+        setProcessing(true);
+        // Get parameters and logout id
+        let params = new URLSearchParams(window.location.search);
+        let logoutId = params.get("logoutId");
+        const data = {
+            id: logoutId,
+        } as SignOutViewModel;
+        const url = `${ApplicationConfig.apiPublicAddress}/api/signOut`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(data)
+        }).then(value => {
+            if (value.status === 401) {
+                setError("Invalid logout parameters.");
+            } else if (value.status === 200) {
+                value.json().then((json: SignOutViewModel) => {
+                    // Redirect to the post logout URL
+                    if (json.postLogoutRedirectUri) {
+                        window.location.replace(json.postLogoutRedirectUri);
+                    }
+                });
+            }
+        }).finally(() => setProcessing(false));
+    }, []);
 
     return (
         <Grid item xs={12} sm={8} md={4}>

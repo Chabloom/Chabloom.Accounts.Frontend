@@ -1,3 +1,4 @@
-export * from './Login';
-export * from './Logout';
+export * from './Error';
 export * from './Register';
+export * from './SignIn';
+export * from './SignOut';

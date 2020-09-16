@@ -16,7 +16,7 @@ import {
 import {Alert, AlertTitle} from '@material-ui/lab';
 import {makeStyles} from "@material-ui/core/styles";
 
-import {LoginViewModel} from "../models";
+import {SignInViewModel} from "../models";
 import {ApplicationConfig} from "../settings";
 
 import logo from "../logo.svg"
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export const Login: React.FC = () => {
+export const SignIn: React.FC = () => {
     // Initialize classes
     const classes = useStyles();
 
@@ -60,8 +60,9 @@ export const Login: React.FC = () => {
                         email: email,
                         password: password,
                         remember: remember,
-                    } as LoginViewModel;
-                    fetch(`${ApplicationConfig.apiPublicAddress}/api/authentication/login`, {
+                        returnUrl: returnUrl,
+                    } as SignInViewModel;
+                    fetch(`${ApplicationConfig.apiPublicAddress}/api/signIn`, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json'
