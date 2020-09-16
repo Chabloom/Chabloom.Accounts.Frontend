@@ -20,6 +20,7 @@ import {SignInViewModel} from "../models";
 import {ApplicationConfig} from "../settings";
 
 import logo from "../logo.svg"
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -44,8 +45,8 @@ export const SignIn: React.FC = () => {
     const [processing, setProcessing] = React.useState(false);
 
     // Get parameters and return URL
-    let params = new URLSearchParams(window.location.search);
-    let returnUrl = params.get("ReturnUrl");
+    const params = new URLSearchParams(window.location.search);
+    const returnUrl = params.get("ReturnUrl");
 
     return (
         <Grid item xs={12} sm={8} md={4}>
@@ -91,6 +92,9 @@ export const SignIn: React.FC = () => {
                             }
                             label="Stay logged in"/>
                     </FormGroup>
+                    <Typography className={classes.mt1} variant="body1">
+                        No account? <Link to={`/register${window.location.search}`}>Create one!</Link>
+                    </Typography>
                     {error &&
                     <Alert className={classes.mt1} severity="error">
                         <AlertTitle>Error</AlertTitle>

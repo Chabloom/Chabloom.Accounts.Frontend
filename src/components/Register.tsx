@@ -44,8 +44,8 @@ export const Register: React.FC = () => {
     const [processing, setProcessing] = React.useState(false);
 
     // Get parameters and return URL
-    let params = new URLSearchParams(window.location.search);
-    let returnUrl = params.get("ReturnUrl");
+    const params = new URLSearchParams(window.location.search);
+    const returnUrl = params.get("ReturnUrl");
 
     return (
         <Grid item xs={12} sm={8} md={4}>
@@ -79,7 +79,7 @@ export const Register: React.FC = () => {
                         if (value.status === 400) {
                             setError(await value.text());
                         } else if (value.status === 200 && returnUrl) {
-                            window.location.replace(returnUrl);
+                            window.location.replace(`/signIn${window.location.search}`);
                         }
                     }).catch(reason => {
                         setError(reason.message);
