@@ -11,16 +11,16 @@ import {
     Paper,
     TextField,
     Theme,
-    Typography
+    Typography,
 } from "@material-ui/core";
-import {Alert, AlertTitle} from '@material-ui/lab';
-import {makeStyles} from "@material-ui/core/styles";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { makeStyles } from "@material-ui/core/styles";
 
-import {SignInViewModel} from "../models";
-import {ApplicationConfig} from "../settings";
+import { SignInViewModel } from "../models";
+import { ApplicationConfig } from "../settings";
 
-import logo from "../logo.svg"
-import {Link} from "react-router-dom";
+import logo from "../logo.svg";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         mt1: {
             marginTop: theme.spacing(1),
-        }
-    }),
+        },
+    })
 );
 
 export const SignIn: React.FC = () => {
@@ -51,65 +51,98 @@ export const SignIn: React.FC = () => {
     return (
         <Grid item xs={12} sm={8} md={4}>
             <Paper className={classes.paper} elevation={3}>
-                <img src={logo} className="logo" alt="logo"/>
+                <img src={logo} className="logo" alt="logo" />
                 <Typography variant="h5">Sign in</Typography>
-                <form onSubmit={e => {
-                    e.preventDefault();
-                    setError("");
-                    setProcessing(true);
-                    const data = {
-                        email: email,
-                        password: password,
-                        remember: remember,
-                        returnUrl: returnUrl,
-                    } as SignInViewModel;
-                    fetch(`${ApplicationConfig.apiPublicAddress}/api/signIn`, {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        credentials: 'include',
-                        body: JSON.stringify(data)
-                    }).then(value => {
-                        if (value.status === 401) {
-                            setError("Invalid username or password.");
-                        } else if (value.status === 200 && returnUrl) {
-                            window.location.replace(returnUrl);
-                        }
-                    }).catch(reason => {
-                        setError(reason.message);
-                    }).finally(() => setProcessing(false));
-                }}>
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        setError("");
+                        setProcessing(true);
+                        const data = {
+                            email: email,
+                            password: password,
+                            remember: remember,
+                            returnUrl: returnUrl,
+                        } as SignInViewModel;
+                        fetch(
+                            `${ApplicationConfig.apiPublicAddress}/api/signIn`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                credentials: "include",
+                                body: JSON.stringify(data),
+                            }
+                        )
+                            .then((value) => {
+                                if (value.status === 401) {
+                                    setError("Invalid username or password.");
+                                } else if (value.status === 200 && returnUrl) {
+                                    window.location.replace(returnUrl);
+                                }
+                            })
+                            .catch((reason) => {
+                                setError(reason.message);
+                            })
+                            .finally(() => setProcessing(false));
+                    }}
+                >
                     <FormGroup>
-                        <TextField required name="email" label="Email" value={email} type="email"
-                                   disabled={processing} onChange={e => setEmail(e.target.value)}/>
-                        <TextField required name="password" label="Password" value={password} type="password"
-                                   disabled={processing} onChange={e => setPassword(e.target.value)}/>
+                        <TextField
+                            required
+                            name="email"
+                            label="Email"
+                            value={email}
+                            type="email"
+                            disabled={processing}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <TextField
+                            required
+                            name="password"
+                            label="Password"
+                            value={password}
+                            type="password"
+                            disabled={processing}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                         <FormControlLabel
                             control={
-                                <Checkbox name="remember" color="primary" checked={remember}
-                                          onChange={() => setRemember(!remember)}/>
+                                <Checkbox
+                                    name="remember"
+                                    color="primary"
+                                    checked={remember}
+                                    onChange={() => setRemember(!remember)}
+                                />
                             }
-                            label="Stay logged in"/>
+                            label="Stay logged in"
+                        />
                     </FormGroup>
                     <Typography className={classes.mt1} variant="body1">
-                        No account? <Link to={`/register${window.location.search}`}>Create one!</Link>
+                        No account?{" "}
+                        <Link to={`/register${window.location.search}`}>
+                            Create one!
+                        </Link>
                     </Typography>
-                    {error &&
-                    <Alert className={classes.mt1} severity="error">
-                        <AlertTitle>Error</AlertTitle>
-                        {error}
-                    </Alert>
-                    }
-                    {processing &&
-                    <LinearProgress className={classes.mt1}/>
-                    }
-                    <Button className={classes.mt1} variant="contained" color="primary" type="submit"
-                            disabled={processing}>
+                    {error && (
+                        <Alert className={classes.mt1} severity="error">
+                            <AlertTitle>Error</AlertTitle>
+                            {error}
+                        </Alert>
+                    )}
+                    {processing && <LinearProgress className={classes.mt1} />}
+                    <Button
+                        className={classes.mt1}
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        disabled={processing}
+                    >
                         Login
                     </Button>
                 </form>
             </Paper>
         </Grid>
     );
-}
+};
