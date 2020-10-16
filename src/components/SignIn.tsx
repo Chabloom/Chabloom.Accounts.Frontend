@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
     Button,
@@ -17,10 +18,9 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SignInViewModel } from "../models";
-import { ApplicationConfig } from "../settings";
+import { ApplicationConfig } from "../settings/config";
 
 import logo from "../logo.svg";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
