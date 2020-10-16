@@ -1,3 +1,3 @@
 export interface BaseViewModel {
-    [x: string]: any | undefined;
+  [x: string]: any | undefined;
 }
