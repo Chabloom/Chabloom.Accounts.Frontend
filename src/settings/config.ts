@@ -1,8 +1,8 @@
 export const ApplicationConfig = {
   name: "chabloom-accounts",
   displayName: "Chabloom Accounts",
-  apiPublicAddress: "API_PUBLIC_ADDRESS",
-  jwtPublicAddress: "JWT_PUBLIC_ADDRESS",
+  apiPublicAddress: "https://accounts-api-test.chabloom.com",
+  jwtPublicAddress: "https://accounts-api-test.chabloom.com",
 };
 
 export const AppInsightsInstrumentationKey = "APPINSIGHTS_INSTRUMENTATIONKEY";
