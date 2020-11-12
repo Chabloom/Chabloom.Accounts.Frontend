@@ -8,7 +8,7 @@ import { ReactPlugin } from "@microsoft/applicationinsights-react-js";
 
 import { createBrowserHistory } from "history";
 
-import { AppInsightsInstrumentationKey } from "./settings/config";
+import { AppInsightsInstrumentationKey } from "./types";
 
 import { Error, Register, SignIn, SignOut } from "./components";
 

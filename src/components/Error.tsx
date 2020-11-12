@@ -11,8 +11,7 @@ import {
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ErrorViewModel } from "../models";
-import { ApplicationConfig } from "../settings/config";
+import { ApplicationConfig, ErrorViewModel } from "../types";
 
 import logo from "../logo.svg";
 

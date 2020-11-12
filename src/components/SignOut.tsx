@@ -11,8 +11,7 @@ import {
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { SignOutViewModel } from "../models";
-import { ApplicationConfig } from "../settings/config";
+import { ApplicationConfig, SignOutViewModel } from "../types";
 
 import logo from "../logo.svg";
 

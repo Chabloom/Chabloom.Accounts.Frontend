@@ -1,4 +1,4 @@
-import { BaseViewModel } from "./BaseViewModel";
+import { BaseViewModel } from "../modelBase";
 
 export interface ErrorViewModel extends BaseViewModel {
   id: string;

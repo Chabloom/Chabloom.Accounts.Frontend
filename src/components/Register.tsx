@@ -14,8 +14,7 @@ import {
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { RegisterViewModel } from "../models";
-import { ApplicationConfig } from "../settings/config";
+import { ApplicationConfig, RegisterViewModel } from "../types";
 
 import logo from "../logo.svg";
 

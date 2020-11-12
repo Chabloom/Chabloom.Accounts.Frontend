@@ -1,4 +1,4 @@
-import { BaseViewModel } from "./BaseViewModel";
+import { BaseViewModel } from "../modelBase";
 
 export interface RegisterViewModel extends BaseViewModel {
   name: string;
