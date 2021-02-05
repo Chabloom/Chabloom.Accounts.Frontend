@@ -1,5 +1,5 @@
 apiVersion: v2
-name: Chabloom.Accounts.Frontend
+name: chabloom-accounts-frontend
 description: Chabloom Accounts Frontend
 
 # A chart can be either an 'application' or a 'library' chart.
