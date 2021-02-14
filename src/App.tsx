@@ -24,9 +24,9 @@ const appInsights = new ApplicationInsights({
     instrumentationKey: AppInsightsInstrumentationKey,
     extensions: [reactPlugin],
     extensionConfig: {
-      [reactPlugin.identifier]: { history: browserHistory }
-    }
-  }
+      [reactPlugin.identifier]: { history: browserHistory },
+    },
+  },
 });
 appInsights.loadAppInsights();
 
@@ -75,11 +75,11 @@ export const App: React.FC = () => {
     () =>
       createMuiTheme({
         palette: {
-          mode: darkMode ? "dark" : "light"
+          mode: darkMode ? "dark" : "light",
         },
         typography: {
-          fontFamily: ["Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif"].join(",")
-        }
+          fontFamily: ["Open Sans", "Roboto", "Helvetica", "Arial", "sans-serif"].join(","),
+        },
       }),
     [darkMode]
   );
@@ -91,7 +91,7 @@ export const App: React.FC = () => {
     userName: userName,
     userToken: userToken,
     darkMode: darkMode,
-    setDarkMode: setDarkMode
+    setDarkMode: setDarkMode,
   } as AppContextProps;
 
   return (
@@ -99,12 +99,7 @@ export const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <AppContext.Provider value={props}>
           <Router>
-            <Grid
-              container
-              alignItems="center"
-              justifyItems="center"
-              style={{ minHeight: "100vh" }}
-            >
+            <Grid container alignItems="center" justifyItems="center" style={{ minHeight: "100vh" }}>
               <Switch>
                 <Route path="/error">
                   <Error />
