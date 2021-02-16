@@ -3,9 +3,9 @@ import * as React from "react";
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ApplicationConfig, SignOutViewModel } from "../types";
-
 import { Status } from "./Status";
+
+import { useAppContext } from "../AppContext";
 
 import logo from "../logo.svg";
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const SignOut: React.FC = () => {
+export const SignOutCallback: React.FC = () => {
   // Initialize classes
   const classes = useStyles();
 
@@ -28,41 +28,27 @@ export const SignOut: React.FC = () => {
   const [error, setError] = React.useState("");
   const [processing, setProcessing] = React.useState(false);
 
+  const context = useAppContext();
+
+  // Sign out and redirect to the specified redirect URI
   React.useEffect(() => {
     setProcessing(true);
     // Removed the signed in key
     localStorage.removeItem("SignedIn");
-    // Get parameters and logout id
-    const params = new URLSearchParams(window.location.search);
-    const logoutId = params.get("logoutId");
-    const data = {
-      id: logoutId,
-    } as SignOutViewModel;
-    const url = `${ApplicationConfig.backendPublicAddress}/api/signOut`;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
-    })
-      .then((value) => {
-        if (value.status === 401) {
-          setError("Invalid logout parameters.");
-          return;
-        } else if (value.status === 200) {
-          value.json().then((json: SignOutViewModel) => {
-            // Redirect to the post logout URL
-            if (json.postLogoutRedirectUri) {
-              window.location.replace(json.postLogoutRedirectUri);
-            }
-          });
-        }
-        window.location.replace("/");
-      })
-      .finally(() => setProcessing(false));
-  }, []);
+    const redirectUri = localStorage.getItem("redirectUri");
+    context.userManager.signoutRedirectCallback().then((value) => {
+      if (value.error) {
+        setError(value.error);
+        return;
+      }
+      // Redirect to the post logout URL
+      if (redirectUri) {
+        window.location.replace(redirectUri);
+      }
+      window.location.replace("/");
+    });
+    setProcessing(false);
+  }, [context.userManager]);
 
   return (
     <div>

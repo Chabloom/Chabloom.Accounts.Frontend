@@ -3,11 +3,11 @@ import * as React from "react";
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ApplicationConfig, ErrorViewModel } from "../../types";
+import { ApplicationConfig, ErrorViewModel } from "../types";
 
-import { Status } from "../Status";
+import { Status } from "./Status";
 
-import logo from "../../logo.svg";
+import logo from "../logo.svg";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +37,7 @@ export const Error: React.FC = () => {
     const data = {
       id: errorId,
     } as ErrorViewModel;
-    const url = `${ApplicationConfig.accountsApiPublicAddress}/api/error`;
+    const url = `${ApplicationConfig.backendPublicAddress}/api/error`;
     fetch(url, {
       method: "POST",
       headers: {
