@@ -1,5 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { UserManager } from "oidc-client";
 
@@ -12,10 +11,10 @@ import { createBrowserHistory } from "history";
 
 import { AppInsightsInstrumentationKey, OidcSettings } from "./types";
 
-import { Error, Register, SignIn, SignInCallback, SignOut, SignOutCallback } from "./components";
+import { AppContext, AppContextProps } from "./AppContext";
+import { AppRoutes } from "./AppRoutes";
 
 import "./App.scss";
-import { AppContext, AppContextProps } from "./AppContext";
 
 const browserHistory = createBrowserHistory({ basename: "" });
 const reactPlugin = new ReactPlugin();
@@ -98,30 +97,9 @@ export const App: React.FC = () => {
     <StylesProvider injectFirst>
       <ThemeProvider theme={theme}>
         <AppContext.Provider value={props}>
-          <Router>
-            <Grid container alignItems="center" justifyItems="center" style={{ minHeight: "100vh" }}>
-              <Switch>
-                <Route exact={true} path="/signIn">
-                  <SignIn />
-                </Route>
-                <Route exact={true} path="/signOut">
-                  <SignOut />
-                </Route>
-                <Route exact={true} path="/register">
-                  <Register />
-                </Route>
-                <Route exact={true} path="/error">
-                  <Error />
-                </Route>
-                <Route exact={true} path="/signin-oidc">
-                  <SignInCallback />
-                </Route>
-                <Route exact={true} path="/signout-oidc">
-                  <SignOutCallback />
-                </Route>
-              </Switch>
-            </Grid>
-          </Router>
+          <Grid container alignItems="center" justifyItems="center" style={{ minHeight: "100vh" }}>
+            <AppRoutes />
+          </Grid>
         </AppContext.Provider>
       </ThemeProvider>
     </StylesProvider>
