@@ -12,7 +12,7 @@ import { createBrowserHistory } from "history";
 
 import { AppInsightsInstrumentationKey, OidcSettings } from "./types";
 
-import { Error, Register, SignIn, SignOut } from "./components";
+import { Error, Register, SignIn, SignInCallback, SignOut, SignOutCallback } from "./components";
 
 import "./App.scss";
 import { AppContext, AppContextProps } from "./AppContext";
@@ -101,17 +101,23 @@ export const App: React.FC = () => {
           <Router>
             <Grid container alignItems="center" justifyItems="center" style={{ minHeight: "100vh" }}>
               <Switch>
-                <Route path="/error">
-                  <Error />
-                </Route>
-                <Route path="/register">
-                  <Register />
-                </Route>
-                <Route path="/signIn">
+                <Route exact={true} path="/signIn">
                   <SignIn />
                 </Route>
-                <Route path="/signOut">
+                <Route exact={true} path="/signOut">
                   <SignOut />
+                </Route>
+                <Route exact={true} path="/register">
+                  <Register />
+                </Route>
+                <Route exact={true} path="/error">
+                  <Error />
+                </Route>
+                <Route exact={true} path="/signin-oidc">
+                  <SignInCallback />
+                </Route>
+                <Route exact={true} path="/signout-oidc">
+                  <SignOutCallback />
                 </Route>
               </Switch>
             </Grid>
