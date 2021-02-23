@@ -7,6 +7,12 @@ export const AppRoutes: React.FC = () => {
   return (
     <Router>
       <Switch>
+        <Route exact={true} path="/signin-oidc">
+          <SignInCallback />
+        </Route>
+        <Route exact={true} path="/signout-oidc">
+          <SignOutCallback />
+        </Route>
         <Route exact={true} path="/signIn">
           <SignIn />
         </Route>
@@ -18,12 +24,6 @@ export const AppRoutes: React.FC = () => {
         </Route>
         <Route exact={true} path="/error">
           <Error />
-        </Route>
-        <Route exact={true} path="/signin-oidc">
-          <SignInCallback />
-        </Route>
-        <Route exact={true} path="/signout-oidc">
-          <SignOutCallback />
         </Route>
       </Switch>
     </Router>
