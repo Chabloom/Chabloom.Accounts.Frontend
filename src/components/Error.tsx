@@ -12,7 +12,7 @@ import logo from "../logo.svg";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(5),
     },
     mt1: {
       marginTop: theme.spacing(1),
@@ -58,19 +58,17 @@ export const Error: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <Grid container justifyContent="center" style={{ minHeight: "100vh" }}>
-        <Grid item xs={12} sm={8} md={6}>
-          <Paper className={classes.paper} elevation={3}>
-            <img src={logo} className="logo" alt="logo" />
-            <Typography variant="h5">Error</Typography>
-            <Typography>{viewModel?.error}</Typography>
-            <Typography>{viewModel?.errorDescription}</Typography>
-            <Typography variant="subtitle2">Please email this error to support@chabloom.com</Typography>
-            <Status processing={processing} error={error} />
-          </Paper>
-        </Grid>
+    <Grid container alignItems="center" justifyContent="center" style={{ minHeight: "100vh" }}>
+      <Grid item xs={12} sm={8} md={6}>
+        <Paper className={classes.paper} elevation={3}>
+          <img src={logo} className="logo" alt="logo" />
+          <Typography variant="h5">Error</Typography>
+          <Typography>{viewModel?.error}</Typography>
+          <Typography>{viewModel?.errorDescription}</Typography>
+          <Typography variant="subtitle2">Please email this error to support@chabloom.com</Typography>
+          <Status processing={processing} error={error} />
+        </Paper>
       </Grid>
-    </div>
+    </Grid>
   );
 };

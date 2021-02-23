@@ -2,7 +2,7 @@ import React from "react";
 
 import { UserManager } from "oidc-client";
 
-import { createMuiTheme, Grid, StylesProvider, ThemeProvider, useMediaQuery } from "@material-ui/core";
+import { createMuiTheme, StylesProvider, ThemeProvider, useMediaQuery } from "@material-ui/core";
 
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { ReactPlugin } from "@microsoft/applicationinsights-react-js";
@@ -97,9 +97,7 @@ export const App: React.FC = () => {
     <StylesProvider injectFirst>
       <ThemeProvider theme={theme}>
         <AppContext.Provider value={props}>
-          <Grid container alignItems="center" justifyItems="center" style={{ minHeight: "100vh" }}>
-            <AppRoutes />
-          </Grid>
+          <AppRoutes />
         </AppContext.Provider>
       </ThemeProvider>
     </StylesProvider>
