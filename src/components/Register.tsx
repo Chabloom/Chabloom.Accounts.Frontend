@@ -60,7 +60,7 @@ export const Register: React.FC = () => {
                 password: password1,
                 returnUrl: returnUrl,
               } as RegisterViewModel;
-              fetch(`${ApplicationConfig.backendPublicAddress}/api/register`, {
+              fetch(`${ApplicationConfig.accountsBackendPublicAddress}/api/register`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
