@@ -1,6 +1,6 @@
 import { UserManagerSettings } from "oidc-client";
 
-export const ApplicationConfig = {
+export const AppConfiguration = {
   name: "chabloom-accounts",
   displayName: "Chabloom Accounts",
   accountsFrontendPublicAddress: "https://accounts-dev-1.chabloom.com",
@@ -13,11 +13,11 @@ export const ApplicationConfig = {
   transactionsBackendPublicAddress: "https://transactions-api-dev-1.chabloom.com",
 };
 
-export const OidcSettings: UserManagerSettings = {
-  authority: ApplicationConfig.accountsBackendPublicAddress,
+export const OidcConfiguration: UserManagerSettings = {
+  authority: AppConfiguration.accountsBackendPublicAddress,
   client_id: "Chabloom.Accounts.Frontend",
-  redirect_uri: `${ApplicationConfig.accountsFrontendPublicAddress}/signin-oidc`,
-  post_logout_redirect_uri: `${ApplicationConfig.accountsFrontendPublicAddress}/signout-oidc`,
+  redirect_uri: `${AppConfiguration.accountsFrontendPublicAddress}/signin-oidc`,
+  post_logout_redirect_uri: `${AppConfiguration.accountsFrontendPublicAddress}/signout-oidc`,
   response_type: "code",
   scope: "openid profile Chabloom.Accounts.Backend",
   filterProtocolClaims: true,

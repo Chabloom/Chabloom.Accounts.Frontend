@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { UserManager } from "oidc-client";
 
-import { OidcSettings } from "./types";
+import { OidcConfiguration } from "./config";
 
 export interface AppContextProps {
   userManager: UserManager;
@@ -19,7 +19,7 @@ export interface AppContextProps {
 }
 
 export const AppContext = React.createContext<AppContextProps>({
-  userManager: new UserManager(OidcSettings),
+  userManager: new UserManager(OidcConfiguration),
   userLoaded: false,
   userId: "",
   userName: "",

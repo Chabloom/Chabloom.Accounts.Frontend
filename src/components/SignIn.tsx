@@ -15,9 +15,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ApplicationConfig, SignInViewModel } from "../types";
-
-import { Status } from "./Status";
+import { SignInViewModel } from "../api";
+import { AppConfiguration } from "../config";
+import { Status } from "../common";
 
 import logo from "../logo.svg";
 
@@ -64,7 +64,7 @@ export const SignIn: React.FC = () => {
                 remember: remember,
                 returnUrl: returnUrl,
               } as SignInViewModel;
-              fetch(`${ApplicationConfig.accountsBackendPublicAddress}/api/signIn`, {
+              fetch(`${AppConfiguration.accountsBackendPublicAddress}/api/signIn`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",

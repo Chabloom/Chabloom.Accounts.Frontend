@@ -4,7 +4,7 @@ import { UserManager } from "oidc-client";
 
 import { createMuiTheme, StylesProvider, ThemeProvider, useMediaQuery } from "@material-ui/core";
 
-import { OidcSettings } from "./types";
+import { OidcConfiguration } from "./config";
 
 import { AppContext, AppContextProps } from "./AppContext";
 import { AppRoutes } from "./AppRoutes";
@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   const [userToken, setUserToken] = React.useState("");
   const [darkMode, setDarkMode] = React.useState(false);
 
-  const userManager = React.useMemo(() => new UserManager(OidcSettings), []);
+  const userManager = React.useMemo(() => new UserManager(OidcConfiguration), []);
   React.useEffect(() => {
     userManager.events.addUserLoaded((user) => {
       setUserLoaded(true);

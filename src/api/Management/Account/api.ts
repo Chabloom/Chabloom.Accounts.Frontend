@@ -1,4 +1,4 @@
-import { ApplicationConfig } from "../../../types";
+import { AppConfiguration } from "../../../config";
 import { BaseApi, BaseApiType } from "../../../common";
 import { AccountViewModel } from "./model";
 
@@ -7,7 +7,7 @@ export class AccountsApi extends BaseApi<AccountViewModel> implements BaseApiTyp
 
   constructor() {
     super();
-    this.baseUrl = `${ApplicationConfig.ecommerceBackendPublicAddress}/api/accounts`;
+    this.baseUrl = `${AppConfiguration.accountsBackendPublicAddress}/api/accounts`;
   }
 
   readItems(token: string): Promise<[Array<AccountViewModel> | undefined, string]> {

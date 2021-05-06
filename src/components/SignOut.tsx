@@ -3,9 +3,9 @@ import * as React from "react";
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ApplicationConfig, SignOutViewModel } from "../types";
-
-import { Status } from "./Status";
+import { SignOutViewModel } from "../api";
+import { AppConfiguration } from "../config";
+import { Status } from "../common";
 
 import logo from "../logo.svg";
 
@@ -38,7 +38,7 @@ export const SignOut: React.FC = () => {
     const data = {
       id: logoutId,
     } as SignOutViewModel;
-    const url = `${ApplicationConfig.accountsBackendPublicAddress}/api/signOut`;
+    const url = `${AppConfiguration.accountsBackendPublicAddress}/api/signOut`;
     fetch(url, {
       method: "POST",
       headers: {

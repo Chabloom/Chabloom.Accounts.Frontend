@@ -3,9 +3,9 @@ import * as React from "react";
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ApplicationConfig, ErrorViewModel } from "../types";
-
-import { Status } from "./Status";
+import { ErrorViewModel } from "../api";
+import { AppConfiguration } from "../config";
+import { Status } from "../common";
 
 import logo from "../logo.svg";
 
@@ -37,7 +37,7 @@ export const Error: React.FC = () => {
     const data = {
       id: errorId,
     } as ErrorViewModel;
-    const url = `${ApplicationConfig.accountsBackendPublicAddress}/api/error`;
+    const url = `${AppConfiguration.accountsBackendPublicAddress}/api/error`;
     fetch(url, {
       method: "POST",
       headers: {
