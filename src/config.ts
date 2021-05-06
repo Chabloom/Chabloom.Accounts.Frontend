@@ -1,6 +1,7 @@
 import { UserManagerSettings } from "oidc-client";
+import {AppConfigurationBase} from "./common";
 
-export const AppConfiguration = {
+export const AppConfiguration : AppConfigurationBase = {
   name: "chabloom-accounts",
   displayName: "Chabloom Accounts",
   accountsFrontendPublicAddress: "https://accounts-dev-1.chabloom.com",
