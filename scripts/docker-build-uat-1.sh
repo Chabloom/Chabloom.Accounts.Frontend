@@ -1,2 +1,4 @@
-docker build -t chbuat1.azurecr.io/chabloom-accounts-frontend:1 .
-docker push chbuat1.azurecr.io/chabloom-accounts-frontend:1
+timestamp=`date +%s`
+docker build -t chb-uat-1.chabloom.com:32000/chabloom-accounts-frontend:$timestamp -t chb-uat-1.chabloom.com:32000/chabloom-accounts-frontend:latest .
+docker push chb-uat-1.chabloom.com:32000/chabloom-accounts-frontend:$timestamp
+docker push chb-uat-1.chabloom.com:32000/chabloom-accounts-frontend:latest
