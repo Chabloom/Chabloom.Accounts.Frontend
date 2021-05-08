@@ -1,10 +1,8 @@
 import * as React from "react";
-
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { ErrorViewModel } from "../api";
-import { AppConfiguration } from "../config";
 import { Status } from "../common";
 
 import logo from "../logo.svg";
@@ -37,7 +35,7 @@ export const Error: React.FC = () => {
     const data = {
       id: errorId,
     } as ErrorViewModel;
-    const url = `${AppConfiguration.accountsBackendPublicAddress}/api/error`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/error`;
     fetch(url, {
       method: "POST",
       headers: {

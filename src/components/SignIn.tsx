@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-
 import {
   Button,
   Checkbox,
@@ -16,7 +15,6 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SignInViewModel } from "../api";
-import { AppConfiguration } from "../config";
 import { Status } from "../common";
 
 import logo from "../logo.svg";
@@ -64,7 +62,7 @@ export const SignIn: React.FC = () => {
                 remember: remember,
                 returnUrl: returnUrl,
               } as SignInViewModel;
-              fetch(`${AppConfiguration.accountsBackendPublicAddress}/api/signIn`, {
+              fetch(`${process.env.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/signIn`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",

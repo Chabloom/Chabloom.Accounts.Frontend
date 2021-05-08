@@ -1,4 +1,3 @@
-import { AppConfiguration } from "../../../config";
 import { BaseApi, BaseApiType } from "../../../common";
 import { PasswordViewModel } from "./model";
 
@@ -7,7 +6,7 @@ export class PasswordsApi extends BaseApi<PasswordViewModel> implements BaseApiT
 
   constructor() {
     super();
-    this.baseUrl = `${AppConfiguration.accountsBackendPublicAddress}/api/passwords`;
+    this.baseUrl = `${process.env.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/passwords`;
   }
 
   readItems(token: string): Promise<[Array<PasswordViewModel> | undefined, string]> {

@@ -1,10 +1,8 @@
 import * as React from "react";
-
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SignOutViewModel } from "../api";
-import { AppConfiguration } from "../config";
 import { Status } from "../common";
 
 import logo from "../logo.svg";
@@ -38,7 +36,7 @@ export const SignOut: React.FC = () => {
     const data = {
       id: logoutId,
     } as SignOutViewModel;
-    const url = `${AppConfiguration.accountsBackendPublicAddress}/api/signOut`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/signOut`;
     fetch(url, {
       method: "POST",
       headers: {

@@ -1,10 +1,8 @@
 import * as React from "react";
-
 import { Button, createStyles, FormGroup, Grid, Paper, TextField, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { RegisterViewModel } from "../api";
-import { AppConfiguration } from "../config";
 import { Status } from "../common";
 
 import logo from "../logo.svg";
@@ -60,7 +58,7 @@ export const Register: React.FC = () => {
                 password: password1,
                 returnUrl: returnUrl,
               } as RegisterViewModel;
-              fetch(`${AppConfiguration.accountsBackendPublicAddress}/api/register`, {
+              fetch(`${process.env.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/register`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",

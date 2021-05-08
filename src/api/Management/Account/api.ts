@@ -1,4 +1,3 @@
-import { AppConfiguration } from "../../../config";
 import { BaseApi, BaseApiType } from "../../../common";
 import { AccountViewModel } from "./model";
 
@@ -7,7 +6,7 @@ export class AccountsApi extends BaseApi<AccountViewModel> implements BaseApiTyp
 
   constructor() {
     super();
-    this.baseUrl = `${AppConfiguration.accountsBackendPublicAddress}/api/accounts`;
+    this.baseUrl = `${process.env.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/accounts`;
   }
 
   readItems(token: string): Promise<[Array<AccountViewModel> | undefined, string]> {
