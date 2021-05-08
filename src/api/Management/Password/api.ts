@@ -2,11 +2,13 @@ import { BaseApi, BaseApiType } from "../../../common";
 import { PasswordViewModel } from "./model";
 
 export class PasswordsApi extends BaseApi<PasswordViewModel> implements BaseApiType<PasswordViewModel> {
-  baseUrl: string;
+  baseUrl = "";
 
   constructor() {
     super();
-    this.baseUrl = `${process.env.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/passwords`;
+    const envConfig = 'env-config';
+    import(envConfig)
+        .then(x => this.baseUrl = `${x.config.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/passwords`);
   }
 
   readItems(token: string): Promise<[Array<PasswordViewModel> | undefined, string]> {
