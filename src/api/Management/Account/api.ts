@@ -6,9 +6,7 @@ export class AccountsApi extends BaseApi<AccountViewModel> implements BaseApiTyp
 
   constructor() {
     super();
-    const envConfig = 'env-config';
-    import(envConfig)
-        .then(x => this.baseUrl = `${x.config.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/accounts`);
+    this.baseUrl = `${(window as any).__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/accounts`;
   }
 
   readItems(token: string): Promise<[Array<AccountViewModel> | undefined, string]> {

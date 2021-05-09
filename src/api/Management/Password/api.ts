@@ -6,9 +6,7 @@ export class PasswordsApi extends BaseApi<PasswordViewModel> implements BaseApiT
 
   constructor() {
     super();
-    const envConfig = 'env-config';
-    import(envConfig)
-        .then(x => this.baseUrl = `${x.config.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/passwords`);
+    this.baseUrl = `${(window as any).__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/passwords`;
   }
 
   readItems(token: string): Promise<[Array<PasswordViewModel> | undefined, string]> {
