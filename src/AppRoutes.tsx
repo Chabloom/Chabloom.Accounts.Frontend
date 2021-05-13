@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { SignInCallback, SignOutCallback, useAppContext } from "./common";
-import { Error, Register, SignIn, SignOut } from "./components";
+import { Error, Profile, Register, SignIn, SignOut } from "./components";
 
 export const AppRoutes: React.FC = () => {
   const { userManager } = useAppContext();
@@ -15,6 +15,9 @@ export const AppRoutes: React.FC = () => {
         </Route>
         <Route exact={true} path="/signout-oidc">
           <SignOutCallback userManager={userManager} />
+        </Route>
+        <Route exact={true} path="/profile">
+          <Profile />
         </Route>
         <Route exact={true} path="/signIn">
           <SignIn />
