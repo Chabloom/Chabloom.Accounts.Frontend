@@ -35,7 +35,7 @@ export const Error: React.FC = () => {
     const data = {
       id: errorId,
     } as ErrorViewModel;
-    const url = `${(window as any).__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/error`;
+    const url = `${window.__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/error`;
     fetch(url, {
       method: "POST",
       headers: {

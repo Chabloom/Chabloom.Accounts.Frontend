@@ -62,7 +62,7 @@ export const SignIn: React.FC = () => {
                 remember: remember,
                 returnUrl: returnUrl,
               } as SignInViewModel;
-              fetch(`${(window as any).__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/signIn`, {
+              fetch(`${window.__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/signIn`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
