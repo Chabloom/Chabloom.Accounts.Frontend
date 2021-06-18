@@ -2,8 +2,8 @@ import React from "react";
 import { Button, createStyles, FormGroup, Grid, Paper, TextField, Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useAppContext } from "../../common";
 import { AccountsApi, AccountViewModel } from "../../api";
+import { useAppContext } from "../../AppContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,8 +29,9 @@ export const Profile: React.FC = () => {
   React.useEffect(() => {
     const getAccount = async () => {
       const api = new AccountsApi();
-      const [ret, err] = await api.readItem(userToken, userId);
-      if (ret && !err) {
+      const success = await api.read(userId, userToken);
+      if (success) {
+        const ret = api.data() as AccountViewModel;
         setName(ret.name);
         setEmail(ret.email);
         setPhoneNumber(ret.phoneNumber);
@@ -49,12 +50,14 @@ export const Profile: React.FC = () => {
               const setAccount = async () => {
                 const api = new AccountsApi();
                 const account = {
+                  id: userId,
                   name,
                   email,
                   phoneNumber,
                 } as AccountViewModel;
-                const [ret, err] = await api.editItem(userToken, account);
-                if (ret && !err) {
+                const success = await api.update(userId, account, userToken);
+                if (success) {
+                  const ret = api.data() as AccountViewModel;
                   setName(ret.name);
                   setEmail(ret.email);
                   setPhoneNumber(ret.phoneNumber);

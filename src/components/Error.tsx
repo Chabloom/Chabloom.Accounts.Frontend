@@ -2,10 +2,10 @@ import * as React from "react";
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ErrorViewModel } from "../api";
-import { Status } from "../common";
+import { ErrorAPI, ErrorViewModel } from "../api";
+import { Status } from "./Status";
 
-import logo from "../logo.svg";
+import logo from "../images/logo.svg";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,27 +32,20 @@ export const Error: React.FC = () => {
     // Get parameters and error id
     const params = new URLSearchParams(window.location.search);
     const errorId = params.get("errorId");
-    const data = {
-      id: errorId,
-    } as ErrorViewModel;
-    const url = `${window.__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/error`;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((value) => {
-        if (value.status === 401) {
-          setError("Invalid logout parameters.");
-        } else if (value.status === 200) {
-          value.json().then((json: ErrorViewModel) => {
-            setViewModel(json);
-          });
-        }
-      })
-      .finally(() => setProcessing(false));
+    if (errorId) {
+      const api = new ErrorAPI();
+      api
+        .getError(errorId)
+        .then((success) => {
+          if (success) {
+            setViewModel(api.data() as ErrorViewModel);
+          } else {
+            setError(api.lastError());
+          }
+        })
+        .finally(() => setProcessing(false));
+    }
+    setProcessing(false);
   }, []);
 
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { SignInCallback, SignOutCallback, useAppContext } from "./common";
-import { Error, Profile, Register, SignIn, SignOut } from "./components";
+import { Error, Profile, Register, SignIn, SignInCallback, SignOut, SignOutCallback } from "./components";
+import { useAppContext } from "./AppContext";
 
 export const AppRoutes: React.FC = () => {
   const { userManager } = useAppContext();

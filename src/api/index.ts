@@ -1,6 +1,2 @@
-export * from "./Error";
-export * from "./Register";
-export * from "./SignIn";
-export * from "./SignOut";
-
+export * from "./Auth";
 export * from "./Management";

@@ -2,10 +2,10 @@ import * as React from "react";
 import { Button, createStyles, FormGroup, Grid, Paper, TextField, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { RegisterViewModel } from "../api";
-import { Status } from "../common";
+import { RegisterAPI, RegisterViewModel } from "../api";
+import { Status } from "./Status";
 
-import logo from "../logo.svg";
+import logo from "../images/logo.svg";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,30 +51,23 @@ export const Register: React.FC = () => {
                 setProcessing(false);
                 return;
               }
-              const data = {
+              const viewModel = {
+                username: email,
                 name: name,
                 email: email,
-                phone: phone,
+                phoneNumber: phone,
                 password: password1,
                 returnUrl: returnUrl,
               } as RegisterViewModel;
-              fetch(`${window.__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/register`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify(data),
-              })
-                .then(async (value) => {
-                  if (value.status === 400) {
-                    setError(await value.text());
-                  } else if (value.status === 200 && returnUrl) {
+              const api = new RegisterAPI();
+              api
+                .register(viewModel)
+                .then((success) => {
+                  if (success) {
                     window.location.replace(`/signIn${window.location.search}`);
+                  } else {
+                    setError(api.lastError());
                   }
-                })
-                .catch((reason) => {
-                  setError(reason.message);
                 })
                 .finally(() => setProcessing(false));
             }}

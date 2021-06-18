@@ -14,10 +14,10 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { SignInViewModel } from "../api";
-import { Status } from "../common";
+import { SignInAPI, SignInViewModel } from "../api";
+import { Status } from "./Status";
 
-import logo from "../logo.svg";
+import logo from "../images/logo.svg";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,29 +56,22 @@ export const SignIn: React.FC = () => {
               e.preventDefault();
               setError("");
               setProcessing(true);
-              const data = {
+              const viewModel = {
+                username: email,
                 email: email,
                 password: password,
-                remember: remember,
+                persist: remember,
                 returnUrl: returnUrl,
               } as SignInViewModel;
-              fetch(`${window.__env__.REACT_APP_ACCOUNTS_BACKEND_ADDRESS}/api/signIn`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify(data),
-              })
-                .then((value) => {
-                  if (value.status === 401) {
-                    setError("Invalid username or password.");
-                  } else if (value.status === 200 && returnUrl) {
-                    window.location.replace(returnUrl);
+              const api = new SignInAPI();
+              api
+                .signIn(viewModel)
+                .then((success) => {
+                  if (success) {
+                    window.location.replace(returnUrl as string);
+                  } else {
+                    setError(api.lastError());
                   }
-                })
-                .catch((reason) => {
-                  setError(reason.message);
                 })
                 .finally(() => setProcessing(false));
             }}

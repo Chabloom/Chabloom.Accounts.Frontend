@@ -1,8 +1,8 @@
 import * as React from "react";
+import { UserManager } from "oidc-client";
 import { createStyles, Grid, Paper, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { SignInAPI } from "../api";
 import { Status } from "./Status";
 
 import logo from "../images/logo.svg";
@@ -18,7 +18,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const SignOut: React.FC = () => {
+interface Props {
+  userManager: UserManager;
+}
+
+export const SignOutCallback: React.FC<Props> = ({ userManager }) => {
   // Initialize classes
   const classes = useStyles();
 
@@ -26,25 +30,25 @@ export const SignOut: React.FC = () => {
   const [error, setError] = React.useState("");
   const [processing, setProcessing] = React.useState(false);
 
+  // Sign out and redirect to the specified redirect URI
   React.useEffect(() => {
     setProcessing(true);
     // Removed the signed in key
     localStorage.removeItem("SignedIn");
-    // Get parameters and logout id
-    const params = new URLSearchParams(window.location.search);
-    const logoutId = params.get("logoutId");
-    const api = new SignInAPI();
-    api
-      .signOut(logoutId as string)
-      .then((success) => {
-        if (success) {
-          window.location.replace("/");
-        } else {
-          setError(api.lastError());
-        }
-      })
-      .finally(() => setProcessing(false));
-  }, []);
+    const redirectUri = localStorage.getItem("redirectUri");
+    userManager.signoutRedirectCallback().then((value) => {
+      if (value.error) {
+        setError(value.error);
+        return;
+      }
+      // Redirect to the post logout URL
+      if (redirectUri) {
+        window.location.replace(redirectUri);
+      }
+      window.location.replace("/");
+    });
+    setProcessing(false);
+  }, [userManager]);
 
   return (
     <Grid container alignItems="center" justifyContent="center" style={{ minHeight: "100vh" }}>
