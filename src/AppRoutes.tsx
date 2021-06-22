@@ -16,20 +16,20 @@ export const AppRoutes: React.FC = () => {
         <Route exact={true} path="/signout-oidc">
           <SignOutCallback userManager={userManager} />
         </Route>
-        <Route exact={true} path="/profile">
-          <Profile />
-        </Route>
-        <Route exact={true} path="/signIn">
+        <Route exact={true} path="/account/signIn">
           <SignIn />
         </Route>
-        <Route exact={true} path="/signOut">
+        <Route exact={true} path="/account/signOut">
           <SignOut />
         </Route>
-        <Route exact={true} path="/register">
+        <Route exact={true} path="/account/register">
           <Register />
         </Route>
-        <Route exact={true} path="/error">
+        <Route exact={true} path="/account/error">
           <Error />
+        </Route>
+        <Route exact={true} path="/profile">
+          <Profile />
         </Route>
       </Switch>
     </Router>
